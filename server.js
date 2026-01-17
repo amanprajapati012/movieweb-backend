@@ -1,6 +1,5 @@
-// server.js
 import dotenv from "dotenv";
-dotenv.config(); // must be first
+dotenv.config(); // Must be first
 
 import express from "express";
 import cors from "cors";
@@ -10,10 +9,16 @@ import movieRoutes from "./routes/movieRoutes.js";
 
 const app = express();
 
-// ✅ CORS FIX
+// ✅ CORS: Remove trailing slash if accidentally present
+const allowedOrigin = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.replace(/\/$/, "")
+  : "http://localhost:3000";
+
+console.log("CORS allowed origin:", allowedOrigin);
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: allowedOrigin,
     credentials: true,
   })
 );
