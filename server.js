@@ -1,5 +1,6 @@
+// server.js
 import dotenv from "dotenv";
-dotenv.config(); // must be first!
+dotenv.config(); // must be first
 
 import express from "express";
 import cors from "cors";
@@ -17,21 +18,22 @@ app.use(
   })
 );
 
+// ✅ JSON parser
 app.use(express.json());
 
-// Routes
+// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/movies", movieRoutes);
 
-// Test route
+// ✅ Test route
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-// DB
+// ✅ Connect to DB
 connectDB();
 
-// Server
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
